@@ -125,4 +125,4 @@ Aqui estan los diagramas de flujos de los endpoints solicitados:
 * Por efecto de esta Demo, la version de este es **0.0.1-SNAPSHOT**.
 * La version de spring boot **3.2.2** presenta Vulnerabilidad en una
   dependencia ([CVE-2023-51074](https://devhub.checkmarx.com/cve-details/CVE-2023-51074/)), recomiendan simpre utilizar
-  la versión más reciente de Spring Boot para evitar ataques maliciosos.  
+  la versión más reciente de Spring Boot para evitar ataques maliciosos.
