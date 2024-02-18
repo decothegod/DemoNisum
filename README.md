@@ -10,20 +10,20 @@ Para construir el archivo JAR del proyecto, ejecuta el siguiente comando en la l
 mvn clean install
 ```
 
-El archivo JAR generado estará en el directorio **_target_** con un nombre similar a demoSmartJob-[VERSION].jar.
+El archivo JAR generado estará en el directorio **_target_** con un nombre similar a demo-[VERSION].jar.
 
 ### 2. Despliegue en el Servidor
 
 Para Deplegar el servicio, ejecuta el siguente comando en la línea de comandos:
 
 ```
-java -jar target/demoSmartJob-[VERSION].jar
+java -jar target/demo-[VERSION].jar
 ```
 
 **_Ejemplo:_**
 
 ```
-java -jar target/demoSmartJob-0.0.1-SNAPSHOT.jar
+java -jar target/demo-0.0.1-SNAPSHOT.jar
 ```
 
 ### 3. Acceder a la Aplicación
