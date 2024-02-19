@@ -4,19 +4,27 @@ import com.nisum.demo.dto.response.UserDTO;
 import com.nisum.demo.dto.request.LoginRequest;
 import com.nisum.demo.dto.request.UserRequest;
 import com.nisum.demo.service.user.UserService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.security.config.Elements.JWT;
+
 @RestController
 @RequestMapping("/v1/auth")
+@OpenAPIDefinition(info = @Info(title = "User API", version = "${app.version}"))
+@SecurityScheme(type = SecuritySchemeType.HTTP, name = "Bearer Authentication", scheme = "bearer", bearerFormat = JWT, description = "Need a token generated upon login or registration endpoints")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -64,7 +72,7 @@ public class UserController {
     })
     @GetMapping("/{userUUID}")
     public ResponseEntity<UserDTO> getUserByUUID(
-            @Parameter(description = "The identifier code", required = true, example = "e58ed763-928c-4155-bee9-fdbaaadc15f3")
+            @Parameter(description = "The identifier code", required = true, example = "1f324716-6a52-4d51-8b58-63060582d1cb")
             @PathVariable String userUUID) {
         return ResponseEntity.ok(userService.getUserByUUID(userUUID));
     }

@@ -1,15 +1,15 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: User API
+  version: 0.0.1-SNAPSHOT
 servers:
-  - url: http://localhost:8080
-    description: Generated server url
+- url: http://localhost:8080
+  description: Generated server url
 paths:
   /v1/auth/sign-up:
     post:
       tags:
-        - user-controller
+      - user-controller
       summary: Register a new user
       description: Register a new user with the information provided.
       operationId: register
@@ -20,14 +20,14 @@ paths:
               $ref: '#/components/schemas/UserRequest'
         required: true
       responses:
-        "500":
-          description: Internal Server Error.
+        "401":
+          description: Unauthorized
           content:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "400":
-          description: Bad Request.
+        "500":
+          description: Internal Server Error.
           content:
             '*/*':
               schema:
@@ -38,8 +38,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "401":
-          description: Unauthorized
+        "400":
+          description: Bad Request.
           content:
             '*/*':
               schema:
@@ -54,7 +54,7 @@ paths:
   /v1/auth/login:
     post:
       tags:
-        - user-controller
+      - user-controller
       summary: Log in
       description: Sign in with the provided credentials.
       operationId: login
@@ -65,14 +65,14 @@ paths:
               $ref: '#/components/schemas/LoginRequest'
         required: true
       responses:
-        "500":
-          description: Internal Server Error.
+        "401":
+          description: "Unauthorized, incorrect credentials."
           content:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "400":
-          description: Bad Request
+        "500":
+          description: Internal Server Error.
           content:
             '*/*':
               schema:
@@ -83,8 +83,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "401":
-          description: "Unauthorized, incorrect credentials."
+        "400":
+          description: Bad Request
           content:
             '*/*':
               schema:
@@ -98,19 +98,20 @@ paths:
   /v1/auth:
     get:
       tags:
-        - user-controller
+      - user-controller
       summary: Get all users
-      description: Retrieves the complete list of users.
+      description: Retrieves the complete list of users. Need a token generated upon
+        login or registration.
       operationId: getAllUsers
       responses:
-        "500":
-          description: Internal Server Error.
+        "401":
+          description: Unauthorized
           content:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "400":
-          description: Bad Request
+        "500":
+          description: Internal Server Error.
           content:
             '*/*':
               schema:
@@ -121,8 +122,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "401":
-          description: Unauthorized
+        "400":
+          description: Bad Request
           content:
             '*/*':
               schema:
@@ -137,32 +138,32 @@ paths:
                 items:
                   $ref: '#/components/schemas/UserDTO'
       security:
-        - Bearer Authentication: [ ]
+      - Bearer Authentication: []
   /v1/auth/{userUUID}:
     get:
       tags:
-        - user-controller
+      - user-controller
       summary: Get User by id
-      description: Retrieves a user by its UUID .Need a token generated upon login
+      description: Retrieves a user by its UUID. Need a token generated upon login
         or registration.
       operationId: getUserByUUID
       parameters:
-        - name: userUUID
-          in: path
-          description: The identifier code
-          required: true
-          schema:
-            type: string
-          example: e58ed763-928c-4155-bee9-fdbaaadc15f3
+      - name: userUUID
+        in: path
+        description: The identifier code
+        required: true
+        schema:
+          type: string
+        example: 1f324716-6a52-4d51-8b58-63060582d1cb
       responses:
-        "500":
-          description: Internal Server Error.
+        "401":
+          description: Unauthorized
           content:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "400":
-          description: Bad Request
+        "500":
+          description: Internal Server Error.
           content:
             '*/*':
               schema:
@@ -173,8 +174,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "401":
-          description: Unauthorized
+        "400":
+          description: Bad Request
           content:
             '*/*':
               schema:
@@ -186,7 +187,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserDTO'
       security:
-        - Bearer Authentication: [ ]
+      - Bearer Authentication: []
 components:
   schemas:
     ErrorResponse:
@@ -239,7 +240,7 @@ components:
           type: string
         token:
           type: string
-        active:
+        isActive:
           type: boolean
     LoginRequest:
       type: object
@@ -248,3 +249,9 @@ components:
           type: string
         password:
           type: string
+  securitySchemes:
+    Bearer Authentication:
+      type: http
+      description: Need a token generated upon login or registration endpoints
+      scheme: bearer
+      bearerFormat: jwt
