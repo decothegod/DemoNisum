@@ -119,8 +119,8 @@ Aqui estan los diagramas de flujos de los endpoints solicitados:
 * SpringBoot está diseñado para ejecutar aplicaciones en forma autónoma, incluye un servidor Tomcat embebido. Se puede
   ejecutar la aplicación directamente, sin necesidad de un servidor Tomcat externo.
 * La documentación Swagger se genera una vez que se ejecuta la aplicacion (Despliegue de la aplicación).
-* La base de datos se pre-cargan con estos [datos](src/main/resources/data.sql) para las tablas **USER**, **PHONE** y *
-  *USERS_PHONES**
+* La base de datos se pre-cargan con estos [datos](src/main/resources/data.sql) para las tablas **USER**, **PHONE** y 
+  **USERS_PHONES**
 * Revisa la documentación detallada de cada endpoint para comprender mejor su funcionamiento y contratos de entrada.
 * Por efecto de esta Demo, la version de este es **0.0.1-SNAPSHOT**.
 * La version de spring boot **3.2.2** presenta Vulnerabilidad en una
